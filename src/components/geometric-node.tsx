@@ -303,55 +303,7 @@ export const GeometricAgentNodeView = memo(function GeometricAgentNodeView({
           </pattern>
         </defs>
 
-        {/* Outer Orbital Ring for Consensus Synthesis Node */}
-        {role === "consensus" && (
-          <g className="consensus-orbital-system">
-            <ellipse
-              cx="130"
-              cy="86"
-              rx="146"
-              ry="98"
-              className={`consensus-orbital-ring ${
-                isWorking ? "orbital-spinning" : ""
-              } ${isReiterating ? "orbital-reiterating" : ""}`}
-            />
-            <ellipse
-              cx="130"
-              cy="86"
-              rx="146"
-              ry="98"
-              className="consensus-orbital-dash"
-            />
-            {/* Orbiting Satellite Node Beads */}
-            <g
-              className={`orbital-satellites-group ${
-                isWorking ? "orbit-spin" : ""
-              }`}
-            >
-              <circle
-                cx="130"
-                cy="-12"
-                r="3.5"
-                className="orbit-satellite sat-1"
-                fill={data.color}
-              />
-              <circle
-                cx="276"
-                cy="86"
-                r="3"
-                className="orbit-satellite sat-2"
-                fill="#38bdf8"
-              />
-              <circle
-                cx="-16"
-                cy="86"
-                r="3"
-                className="orbit-satellite sat-3"
-                fill="#818cf8"
-              />
-            </g>
-          </g>
-        )}
+
 
         {/* Memory Retrieval Concentric Sectors for Memory Node */}
         {role === "memory" && (

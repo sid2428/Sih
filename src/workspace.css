@@ -1793,10 +1793,6 @@ select option {
   .blending-orbit.is-running > span:first-child,
   .run-status.running i,
   .chassis-perimeter-dash-flow,
-  .orbital-satellites-group.orbit-spin,
-  .consensus-orbital-dash,
-  .orbital-spinning,
-  .orbital-reiterating,
   .memory-radar-scanner,
   .port-reception-ring,
   .port-radiation-ring,
@@ -2996,47 +2992,6 @@ select option {
 
 /* Specialized Node Visual Identities */
 
-/* 1. CONSENSUS SYNTHESIZER ORBITAL SYSTEM */
-.consensus-orbital-ring {
-  stroke: #334460;
-  stroke-width: 1.2px;
-  fill: none;
-  opacity: 0.65;
-  stroke-dasharray: 6 6;
-}
-
-.consensus-orbital-dash {
-  stroke: var(--node-accent);
-  stroke-width: 1.6px;
-  fill: none;
-  opacity: 0.85;
-  stroke-dasharray: 26 100;
-  animation: orbital-ring-spin 8s linear infinite;
-  transform-origin: 130px 86px;
-}
-
-.orbital-spinning {
-  animation: orbital-ring-spin 2.4s linear infinite;
-  stroke: #38bdf8;
-}
-
-.orbital-reiterating {
-  animation: orbital-ring-spin-reverse 1.8s linear infinite;
-  stroke: #f59e0b;
-}
-
-.orbital-satellites-group {
-  transform-origin: 130px 86px;
-}
-
-.orbital-satellites-group.orbit-spin {
-  animation: orbital-satellites-rotate 4s linear infinite;
-}
-
-.orbit-satellite {
-  filter: drop-shadow(0 0 3px currentColor);
-}
-
 /* 2. MEMORY RADAR SYSTEM */
 .memory-ring {
   stroke: #22354c;
@@ -3405,32 +3360,7 @@ select option {
   }
 }
 
-@keyframes orbital-ring-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-@keyframes orbital-ring-spin-reverse {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes orbital-satellites-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @keyframes radar-sweep {
   from {
