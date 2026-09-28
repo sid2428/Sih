@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { SOURCES } from "../data/mock-profile";
+import { useRunStore } from "../store/run-store";
 import type { Forecast } from "../types/forecast";
 import FlatPipeline from "./flat-pipeline";
 
 export default function Pipeline({ forecast }: { forecast: Forecast }) {
   const host = useRef<HTMLDivElement>(null);
+  const run = useRunStore();
   const latest = useRef(forecast);
   latest.current = forecast;
   const updateWeights = useRef<(() => void) | null>(null);
   useEffect(() => {
     updateWeights.current?.();
-  }, [forecast]);
+  }, [forecast, run.displayedWeights]);
   const [fallback, setFallback] = useState(
     () =>
       matchMedia("(prefers-reduced-motion: reduce)").matches ||
@@ -124,17 +126,24 @@ export default function Pipeline({ forecast }: { forecast: Forecast }) {
       scene.add(pipe);
     });
     updateWeights.current = () => {
+      const runState = useRunStore.getState();
       pipes.forEach((pipe, i) => {
         pipe.geometry.dispose();
+        const srcId = SOURCES[i].id;
+        const w =
+          runState.displayedWeights &&
+          runState.displayedWeights[srcId] !== undefined
+            ? runState.displayedWeights[srcId]
+            : latest.current.sources[i]?.weight ?? 0;
         pipe.geometry = new THREE.TubeGeometry(
           curves[i],
           60,
-          0.009 + latest.current.sources[i].weight * 0.055,
+          0.009 + w * 0.055,
           6,
           false,
         );
         (pipe.material as THREE.MeshBasicMaterial).opacity =
-          0.2 + latest.current.sources[i].weight * 0.75;
+          0.2 + w * 0.75;
       });
     };
     updateWeights.current();
@@ -216,15 +225,52 @@ export default function Pipeline({ forecast }: { forecast: Forecast }) {
         frameTimes.length = 0;
       }
       const time = (now - start) / 1000;
-      core.rotation.y = time * 0.08;
-      core.rotation.z = 0.15 + Math.sin(time * 0.2) * 0.06;
+      const runState = useRunStore.getState();
+      const isPaused = runState.status === "paused";
+      const isRunning = runState.status === "running";
+      const speedMult = isPaused ? 0 : isRunning ? 2.2 : 1;
+
+      const getWeight = (sourceIdx: number): number => {
+        if (sourceIdx >= 3) return 1;
+        const srcId = SOURCES[sourceIdx].id;
+        if (
+          runState.displayedWeights &&
+          runState.displayedWeights[srcId] !== undefined
+        ) {
+          return runState.displayedWeights[srcId];
+        }
+        return latest.current.sources[sourceIdx]?.weight ?? 0;
+      };
+
+      const isBlending =
+        runState.agents.blend === "blending" ||
+        runState.agents.blend === "receiving";
+
+      core.rotation.y =
+        time * (isBlending ? 0.28 : 0.08) * (isPaused ? 0 : 1);
+      core.rotation.z =
+        0.15 + Math.sin(time * (isBlending ? 0.5 : 0.2)) * 0.06;
+
       for (let i = 0; i < 120; i++) {
         const source = Math.floor(i / 30);
-        const weight = source < 3 ? latest.current.sources[source].weight : 1;
+        const weight = source < 3 ? getWeight(source) : 1;
+        const srcId = source < 3 ? SOURCES[source].id : null;
+        const isAgentActive = srcId
+          ? runState.agents[srcId] === "sending" ||
+            runState.agents[srcId] === "processing"
+          : false;
+
         const active = i % 30 < Math.ceil(weight * 28 + 2);
-        const p = curves[source].getPoint(((i % 30) / 30 + time * 0.12) % 1);
+        const pSpeed = isAgentActive ? 0.24 : 0.12 * speedMult;
+        const p = curves[source].getPoint(
+          ((i % 30) / 30 + time * pSpeed) % 1,
+        );
         dummy.position.copy(p);
-        dummy.scale.setScalar(active && weight > 0 ? 1 + weight * 0.7 : 0);
+        dummy.scale.setScalar(
+          active && weight > 0
+            ? (1 + weight * 0.7) * (isAgentActive ? 1.35 : 1)
+            : 0,
+        );
         dummy.updateMatrix();
         particles.setMatrixAt(i, dummy.matrix);
       }
@@ -257,14 +303,32 @@ export default function Pipeline({ forecast }: { forecast: Forecast }) {
       className="pipeline-scene"
       aria-label="Three source models feed the adaptive blending engine"
     >
+      {run.status !== "idle" && (
+        <div className={`pipeline-sim-badge ${run.status}`}>
+          <span className="pipeline-sim-dot" />
+          <span>
+            {run.status === "running"
+              ? `SIMULATION RUN 0${run.iteration || 1}`
+              : run.status === "complete"
+                ? `FORECAST ITERATION 0${run.iteration || 1}`
+                : `ITERATION 0${run.iteration || 1} · ${run.status.toUpperCase()}`}
+          </span>
+        </div>
+      )}
       <div className="three-host" ref={host} />
       <div className="pipeline-source-labels">
-        {SOURCES.map((s, i) => (
-          <div key={s.id}>
-            <span style={{ color: s.color }}>{s.short}</span>
-            <b>{(forecast.sources[i].weight * 100).toFixed(0)}%</b>
-          </div>
-        ))}
+        {SOURCES.map((s, i) => {
+          const w =
+            run.displayedWeights && run.displayedWeights[s.id] !== undefined
+              ? run.displayedWeights[s.id]
+              : forecast.sources[i]?.weight ?? 0;
+          return (
+            <div key={s.id}>
+              <span style={{ color: s.color }}>{s.short}</span>
+              <b>{(w * 100).toFixed(0)}%</b>
+            </div>
+          );
+        })}
       </div>
       <div className="pipeline-node-label blend-label">
         Blending engine<span>Skill-weighted fusion</span>
@@ -273,7 +337,9 @@ export default function Pipeline({ forecast }: { forecast: Forecast }) {
         Forecast<span>Decision-ready guidance</span>
       </div>
       <span className="pipeline-caption">
-        Flow intensity reflects source influence
+        {run.status === "running"
+          ? "Live multi-agent simulation · Flow dynamics reflect active orchestration"
+          : "Flow intensity reflects source influence"}
       </span>
     </div>
   );
