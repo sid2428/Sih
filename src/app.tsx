@@ -39,8 +39,9 @@ const NAV: { id: View; label: string; icon: LucideIcon }[] = [
 ];
 const TITLES: Record<View, { title: string; description: string }> = {
   overview: {
-    title: "Different models. One clearer forecast.",
-    description: "Follow the agents. Inspect the decisions. Find the signal.",
+    title: "Build. Configure. Forecast.",
+    description:
+      "Create multi-agent workflows to run simulations, compare models and generate forecasts.",
   },
   explorer: {
     title: "Put every model to the test.",

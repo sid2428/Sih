@@ -82,13 +82,13 @@ export function RiskComparison({
         x2="760"
         y1={y(forecast.threshold)}
         y2={y(forecast.threshold)}
-        stroke="#d8ac67"
+        stroke="#d98c32"
         strokeDasharray="5 5"
       />
       <text
         x="754"
         y={y(forecast.threshold) - 9}
-        fill="#d8ac67"
+        fill="#d98c32"
         fontSize="10"
         textAnchor="end"
       >
@@ -99,13 +99,13 @@ export function RiskComparison({
           x: 220,
           value: forecast.baseline,
           label: "Equal-weight average",
-          color: "#5b657d",
+          color: "#73828d",
         },
         {
           x: 565,
           value: forecast.value,
           label: "Adaptive guidance",
-          color: "#8295ff",
+          color: "#2f6f8f",
         },
       ].map((b) => (
         <g key={b.label}>
@@ -121,13 +121,13 @@ export function RiskComparison({
           <text
             x={b.x}
             y={y(b.value) - 11}
-            fill="#eff3ff"
+            fill="#102a43"
             textAnchor="middle"
             className="bar-value"
           >
             {b.value.toFixed(1)} <tspan fontSize="12">{meta.unit}</tspan>
           </text>
-          <text x={b.x} y="252" className="axis-text light" textAnchor="middle">
+          <text x={b.x} y="252" className="axis-text comparison-category-label" textAnchor="middle">
             {b.label}
           </text>
         </g>

@@ -725,13 +725,13 @@ export default function AgentCanvas() {
           maxZoom={1.8}
           zoomOnScroll={false}
           panOnScroll={false}
-          colorMode="dark"
+          colorMode="light"
         >
           <Background
             variant={BackgroundVariant.Dots}
             gap={22}
             size={1}
-            color="#243248"
+            color="#cbd8d4"
           />
         </ReactFlow>
       </div>

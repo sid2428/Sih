@@ -23,7 +23,7 @@ export default function AddBlockModal({ onClose }: AddBlockModalProps) {
   const [customShort, setCustomShort] = useState("NEURAL-2");
   const [customCategory, setCustomCategory] =
     useState<GraphBlockConfig["category"]>("model");
-  const [customColor, setCustomColor] = useState("#38bdf8");
+  const [customColor, setCustomColor] = useState("#3b82b6");
   const [customResolution, setCustomResolution] = useState("2km");
   const [customLatency, setCustomLatency] = useState(350);
   const [customBias, setCustomBias] =
@@ -66,7 +66,7 @@ export default function AddBlockModal({ onClose }: AddBlockModalProps) {
       <div className="add-block-modal-panel" onClick={(e) => e.stopPropagation()}>
         <div className="config-modal-header">
           <div className="config-header-left">
-            <span className="config-node-badge" style={{ background: "#7590ff", color: "#0b111e" }}>
+            <span className="config-node-badge" style={{ background: "#3b82b6", color: "#fff" }}>
               <CirclePlus size={16} />
             </span>
             <div>

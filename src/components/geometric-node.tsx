@@ -268,9 +268,9 @@ export const GeometricAgentNodeView = memo(function GeometricAgentNodeView({
             x2="100%"
             y2="100%"
           >
-            <stop offset="0%" stopColor="#182234" stopOpacity="0.95" />
-            <stop offset="50%" stopColor="#111827" stopOpacity="0.98" />
-            <stop offset="100%" stopColor="#0a0f1d" stopOpacity="1" />
+            <stop offset="0%" stopColor="#fffefa" stopOpacity="1" />
+            <stop offset="50%" stopColor="#f8f7f2" stopOpacity="1" />
+            <stop offset="100%" stopColor="#f2f4ef" stopOpacity="1" />
           </linearGradient>
 
           <radialGradient
