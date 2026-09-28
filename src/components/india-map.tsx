@@ -165,8 +165,8 @@ export default function IndiaMap() {
               height="5"
               patternUnits="userSpaceOnUse"
             >
-              <rect width="5" height="5" fill="#27313d" />
-              <path d="M0 5 5 0" stroke="#586172" strokeWidth=".7" />
+              <rect width="5" height="5" fill="#e4e9e5" />
+              <path d="M0 5 5 0" stroke="#a9b9b4" strokeWidth=".7" />
             </pattern>
             <clipPath id="india-clip">
               <path d={path(INDIA) ?? ""} />

@@ -7,11 +7,13 @@ interface Store {
   view: View;
   records: ForecastRecord[];
   fileName: string;
+  demoUploadName: string;
   preset: string;
   setSelection: (patch: Partial<Selection>) => void;
   setView: (view: View) => void;
   applyPreset: (selection: Selection, id: string) => void;
   setRecords: (records: ForecastRecord[], name: string) => void;
+  setDemoUpload: (name: string) => void;
   reset: () => void;
 }
 export const useForecastStore = create<Store>((set) => ({
@@ -19,6 +21,7 @@ export const useForecastStore = create<Store>((set) => ({
   view: "overview",
   records: [],
   fileName: "",
+  demoUploadName: "",
   preset: "konkan",
   setSelection: (patch) =>
     set((s) => ({
@@ -32,6 +35,7 @@ export const useForecastStore = create<Store>((set) => ({
       preset,
       records: [],
       fileName: "",
+      demoUploadName: "",
     }),
   setRecords: (records, fileName) =>
     set((s) => {
@@ -41,6 +45,7 @@ export const useForecastStore = create<Store>((set) => ({
       return {
         records,
         fileName,
+        demoUploadName: "",
         preset: "",
         selection: {
           ...s.selection,
@@ -53,11 +58,14 @@ export const useForecastStore = create<Store>((set) => ({
         },
       };
     }),
+  setDemoUpload: (name) =>
+    set({ records: [], fileName: name, demoUploadName: name }),
   reset: () =>
     set({
       selection: INITIAL,
       records: [],
       fileName: "",
+      demoUploadName: "",
       preset: "konkan",
     }),
 }));

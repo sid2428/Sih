@@ -49,9 +49,9 @@ const SERIES: { id: SeriesId; label: string; color: string; dash?: boolean }[] =
     { id: "nwp", label: "Physics-based NWP", color: SOURCES[0].color },
     { id: "ensemble", label: "Ensemble guidance", color: SOURCES[1].color },
     { id: "ai", label: "AI pattern model", color: SOURCES[2].color },
-    { id: "baseline", label: "Equal average", color: "#8190a6", dash: true },
-    { id: "blend", label: "Adaptive blend", color: "#f0c77b" },
-    { id: "observed", label: "Observed", color: "#eff2f8", dash: true },
+    { id: "baseline", label: "Equal average", color: "#718096", dash: true },
+    { id: "blend", label: "Adaptive blend", color: "#d98c32" },
+    { id: "observed", label: "Observed", color: "#263746", dash: true },
   ];
 const MODES: { id: ComparisonMode; label: string; description: string }[] = [
   {
@@ -167,13 +167,13 @@ export default function ModelComparison() {
       grid: { left: 55, right: 30, top: 33, bottom: 73 },
       tooltip: {
         trigger: "axis",
-        backgroundColor: "#1b2333",
-        borderColor: "#44516a",
-        textStyle: { color: "#e7ecf6", fontSize: 12 },
+        backgroundColor: "#fffefa",
+        borderColor: "#d9ded9",
+        textStyle: { color: "#102a43", fontSize: 12 },
         axisPointer: {
           type: "cross",
-          label: { backgroundColor: "#384765" },
-          lineStyle: { color: "#899dbc", type: "dashed" },
+          label: { backgroundColor: "#2f6f8f" },
+          lineStyle: { color: "#8296a0", type: "dashed" },
         },
         confine: true,
         valueFormatter: (value) =>
@@ -186,9 +186,9 @@ export default function ModelComparison() {
         data: points.map((p) => p.label),
         boundaryGap: false,
         axisTick: { show: false },
-        axisLine: { lineStyle: { color: "#334056" } },
+        axisLine: { lineStyle: { color: "#78909a" } },
         axisLabel: {
-          color: "#9eabc0",
+          color: "#526777",
           fontSize: 10,
           margin: 14,
           interval: effectiveMode === "history" ? 3 : 6,
@@ -198,7 +198,7 @@ export default function ModelComparison() {
         type: "value",
         name: effectiveMode === "skill" ? `Error (${meta.unit})` : meta.unit,
         nameTextStyle: {
-          color: "#a6b3c8",
+          color: "#526777",
           align: "right",
           padding: [0, 5, 4, 0],
         },
@@ -206,8 +206,8 @@ export default function ModelComparison() {
           selection.variable === "temperature" && effectiveMode !== "skill"
             ? "dataMin"
             : 0,
-        axisLabel: { color: "#9eabc0", fontSize: 10 },
-        splitLine: { lineStyle: { color: "#293245", type: "dashed" } },
+        axisLabel: { color: "#526777", fontSize: 10 },
+        splitLine: { lineStyle: { color: "#e6e7df", type: "dashed" } },
       },
       dataZoom: [
         {
@@ -222,14 +222,14 @@ export default function ModelComparison() {
           height: 17,
           bottom: 10,
           borderColor: "transparent",
-          backgroundColor: "#141c2b",
-          fillerColor: "#617aad25",
-          handleStyle: { color: "#8da3d3", borderColor: "#8da3d3" },
+          backgroundColor: "#e9ede9",
+          fillerColor: "#2f6f8f20",
+          handleStyle: { color: "#2f6f8f", borderColor: "#2f6f8f" },
           dataBackground: {
-            lineStyle: { color: "#465672" },
-            areaStyle: { color: "#263653" },
+            lineStyle: { color: "#7d969f" },
+            areaStyle: { color: "#b9c9c9" },
           },
-          textStyle: { color: "#9eaec6" },
+          textStyle: { color: "#526777" },
           showDetail: false,
           brushSelect: true,
         },
@@ -262,8 +262,8 @@ export default function ModelComparison() {
                   x2: 0,
                   y2: 1,
                   colorStops: [
-                    { offset: 0, color: "#f0c77b19" },
-                    { offset: 1, color: "#f0c77b00" },
+                    { offset: 0, color: "#d98c3222" },
+                    { offset: 1, color: "#d98c3200" },
                   ],
                 },
               }
@@ -273,11 +273,11 @@ export default function ModelComparison() {
             ? {
                 silent: true,
                 symbol: "none",
-                lineStyle: { color: "#987b52", type: "dashed" },
+                lineStyle: { color: "#c0782c", type: "dashed" },
                 label: {
                   formatter: `Review ${meta.threshold} ${meta.unit}`,
                   position: "insideEndTop",
-                  color: "#c3a46f",
+                  color: "#a86522",
                   fontSize: 10,
                 },
                 data: [{ yAxis: meta.threshold }],

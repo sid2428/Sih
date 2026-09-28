@@ -17,7 +17,7 @@ export const AGENT_PERSONAS: Record<string, AgentPersonas> = {
     name: "Dr. Aris Thorne",
     role: "Atmospheric Dynamics Lead",
     affiliation: "NCMRWF-UM Core (4km grid)",
-    avatarColor: "#7590ff",
+    avatarColor: "#3b82b6",
     callsign: "NWP-DYNAMICS",
   },
   ensemble: {
@@ -25,7 +25,7 @@ export const AGENT_PERSONAS: Record<string, AgentPersonas> = {
     name: "Elena Rostova",
     role: "Probabilistic Spread Analyst",
     affiliation: "Global Ensemble Prediction (51 members)",
-    avatarColor: "#42c4ac",
+    avatarColor: "#4f9d8a",
     callsign: "EPS-STOCHASTIC",
   },
   ai: {
@@ -33,7 +33,7 @@ export const AGENT_PERSONAS: Record<string, AgentPersonas> = {
     name: "Dr. Kenji Sato",
     role: "Deep Pattern Synthesizer",
     affiliation: "Fourier Neural Operator (ERA5 40yr)",
-    avatarColor: "#bd8bea",
+    avatarColor: "#8b6fc7",
     callsign: "FNO-NEURAL",
   },
   radar_nowcast: {

@@ -1,19 +1,21 @@
 :root {
   font-family: "Manrope Variable", sans-serif;
-  color: #e5e9f2;
-  background: #0b0d11;
+  color: #102a43;
+  background: #f8f7f2;
   font-synthesis: none;
   font-weight: 450;
-  --ink: #0b0d11;
-  --surface: #11151c;
-  --raised: #191e28;
-  --line: #252c38;
-  --muted: #94a0b5;
-  --nwp: #7590ff;
-  --ensemble: #42c4ac;
-  --ai: #bd8bea;
-  --alert: #ff796b;
-  color-scheme: dark;
+  --ink: #102a43;
+  --surface: #ffffff;
+  --raised: #f5f4ee;
+  --line: #e7e3d9;
+  --muted: #526777;
+  --nwp: #3b82b6;
+  --ensemble: #4f9d8a;
+  --ai: #8b6fc7;
+  --blend: #d98c32;
+  --observed: #263746;
+  --alert: #c94c4c;
+  color-scheme: light;
 }
 * {
   box-sizing: border-box;
@@ -1824,6 +1826,9 @@ input[type="range"] {
   color: #93a7c8;
   margin-top: 12px;
 }
+.risk-chart .axis-text { fill: #38576b; font-size: 11px; }
+.risk-chart .comparison-category-label { fill: #29485c; font-size: 11px; font-weight: 600; }
+.risk-chart .bar-value { fill: #102a43; font-size: 21px; font-weight: 600; }
 .empty-state {
   padding: 30px 24px;
   font-size: 12px;
@@ -2365,4 +2370,74 @@ input[type="range"] {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* AstraBlend light workspace theme. Keep the original component structure and
+   stateful behavior while applying a consistent, readable product surface. */
+:root {
+  --ink: #102a43;
+  --surface: #fff;
+  --raised: #f5f4ee;
+  --line: #e7e3d9;
+  --muted: #526777;
+  --nwp: #3b82b6;
+  --ensemble: #4f9d8a;
+  --ai: #8b6fc7;
+  --blend: #d98c32;
+  --observed: #263746;
+  --alert: #c94c4c;
+  color: #102a43;
+  background: #f8f7f2;
+}
+body { color: #102a43; background: #f8f7f2; }
+.sidebar { background: #fbfaf6; border-color: #e6e2d9; box-shadow: 2px 0 14px #102a4307; }
+.brand, .brand:hover { color: #102a43; }
+.brand-mark { color: #2f6f8f; }
+.brand span, .workspace-label, .sidebar-summary p, .sidebar-bottom p { color: #526777; }
+.workspace-dot { background: #4f9d8a; }
+.nav-item { color: #526777; border-radius: 7px; }
+.nav-item small { color: #82909a; }
+.nav-item:hover { color: #102a43; background: #f0f3ef; }
+.nav-item.active { color: #102a43; background: #e3eeed; }
+.nav-item.active:before { background: #2f6f8f; }
+.sidebar-summary { background: #f7f6f0; border: 1px solid #e8e4da; border-radius: 10px; }
+.sidebar-summary h3 { color: #102a43; }
+.sidebar-bottom { border-color: #e8e4da; }
+.sidebar-bottom button { color: #526777; }
+.project-signature { color: #526777; }
+.main-shell { color: #102a43; }
+.topbar { background: #fbfaf6; border-color: #e6e2d9; }
+.breadcrumb { color: #526777; }
+.breadcrumb span { color: #102a43; }
+.topbar-status { color: #526777; }
+.data-mode { color: #38576b; border-color: #e1ded5; background: #fff; }
+.page-kicker { color: #2f6f8f; }
+.page-kicker > span { background: #2f6f8f; }
+.page-heading p { color: #526777; }
+.button { color: #29485c; background: #fff; border-color: #dcded8; border-radius: 7px; }
+.button:hover { background: #f2f5f2; border-color: #aac2c4; }
+.button.primary { color: #fff; background: #2f6f8f; border-color: #2f6f8f; }
+.button.primary:hover { background: #255a76; }
+.text-button { color: #2f6f8f; }
+.text-button:hover { color: #102a43; }
+.icon-button { color: #38576b; background: #fff; border-color: #dcded8; border-radius: 7px; }
+.forecast-context { color: #526777; }
+.forecast-context b { color: #102a43; }
+.context-divider { background: #dedfd9; }
+.panel { background: #fff; border-color: #e7e3d9; border-radius: 10px; box-shadow: 0 3px 12px #102a4306; }
+th { color: #526777; background: #f7f6f0; }
+td, th { border-color: #e9e7df; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, rect:focus-visible { outline-color: #2f6f8f; }
+.modal-backdrop { background: #102a4366; backdrop-filter: blur(3px); }
+.guide-modal { color: #102a43; background: #fffefa; border-color: #e4e0d6; box-shadow: 0 18px 50px #102a4320; }
+.guide-modal p, .guide-modal ol { color: #526777; }
+.fatal-error { color: #102a43; }
+@media (max-width: 520px) {
+  .sidebar { width: 62px; padding: 15px 6px; }
+  .sidebar .brand { justify-content: center; padding: 0; }
+  .sidebar .brand > div:last-child, .workspace-label, .nav-item span, .nav-item small, .sidebar-summary, .sidebar-bottom { display: none; }
+  .sidebar nav { margin-top: 30px; gap: 8px; }
+  .nav-item { justify-content: center; min-height: 46px; padding: 0; }
+  .nav-item.active:before { left: -6px; }
+  .main-shell { margin-left: 62px; width: calc(100% - 62px); }
 }
